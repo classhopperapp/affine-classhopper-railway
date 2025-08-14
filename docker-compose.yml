@@ -7,10 +7,12 @@ services:
       - "3010:3010"
     environment:
       - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/affine
-      - NODE_ENV=production
-      - AFFINE_PUB_WORKER_COUNT=1
+      - REDIS_URL=redis://redis:6379
+      - NODE_ENV=${NODE_ENV:-production}
+      - AFFINE_PUB_WORKER_COUNT=${AFFINE_PUB_WORKER_COUNT:-1}
     depends_on:
       - postgres
+      - redis
     restart: unless-stopped
 
   postgres:
@@ -18,5 +20,9 @@ services:
     environment:
       POSTGRES_DB: affine
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
     restart: unless-stopped
