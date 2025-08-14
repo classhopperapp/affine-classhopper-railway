@@ -4,7 +4,7 @@ Bu şablon, [AFFiNE](https://affine.pro)’i tek tıkla **Railway.app** üzerind
 
 ## 🚀 Tek Tıkla Deploy
 
-[![Deploy to Railway](https://railway.app/button.svg)](https://railway.app/template/classhopperapp/affine-selfhost-template?referralCode=R1DuZA)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/hC8QHa?referralCode=R1DuZA)
 
 > ⚠️ Not: Railway ücretsiz planında veri kalıcılığı sınırlıdır. Üretim (production) kullanımı için harici PostgreSQL önerilir.
 
