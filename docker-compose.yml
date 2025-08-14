@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  affine:
+    image: toeverything/affine-pro:latest
+    ports:
+      - "3010:3010"
+    environment:
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/affine
+      - NODE_ENV=production
+      - AFFINE_PUB_WORKER_COUNT=1
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: affine
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+    restart: unless-stopped
