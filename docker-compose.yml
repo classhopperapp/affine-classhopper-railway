@@ -6,8 +6,8 @@ services:
     ports:
       - "3010:3010"
     environment:
-      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/affine
-      - REDIS_URL=redis://redis:6379
+      - DATABASE_URL=${DATABASE_URL:-postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/affine}
+      - REDIS_URL=${REDIS_URL:-redis://redis:6379}
       - NODE_ENV=${NODE_ENV:-production}
       - AFFINE_PUB_WORKER_COUNT=${AFFINE_PUB_WORKER_COUNT:-1}
     depends_on:
@@ -20,9 +20,12 @@ services:
     environment:
       POSTGRES_DB: affine
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-securepassword123}
     restart: unless-stopped
 
   redis:
     image: redis:7-alpine
+    command: ["--requirepass", "${REDIS_PASSWORD:-redispass}"]
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-redispass}
     restart: unless-stopped
